@@ -1,61 +1,10 @@
 import { Request, Response } from 'express';
 import { Subject } from '../models/Subject';
+import { createEntity, getEntities, getEntityById, updateEntity, deleteEntity } from './baseController';
 
-export const createSubject = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const subject = await Subject.create(req.body);
-    res.status(201).json(subject);
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
 
-export const getSubjects = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const subjects = await Subject.findAll();
-    res.status(200).json(subjects);
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
-
-export const getSubjectById = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const subject = await Subject.findByPk(req.params.id);
-    if (subject) {
-      res.status(200).json(subject);
-    } else {
-      res.status(404).json({ error: 'Subject not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
-
-export const updateSubject = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const subject = await Subject.findByPk(req.params.id);
-    if (subject) {
-      await subject.update(req.body);
-      res.status(200).json(subject);
-    } else {
-      res.status(404).json({ error: 'Subject not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
-
-export const deleteSubject = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const subject = await Subject.findByPk(req.params.id);
-    if (subject) {
-      await subject.destroy();
-      res.status(204).json();
-    } else {
-      res.status(404).json({ error: 'Subject not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
+export const createSubject = (req: Request, res: Response): Promise<void> => createEntity(Subject, req, res);
+export const getSubjects = (req: Request, res: Response): Promise<void> => getEntities(Subject, req, res);
+export const getSubjectById = (req: Request, res: Response): Promise<void> => getEntityById(Subject, req, res);
+export const updateSubject = (req: Request, res: Response): Promise<void> => updateEntity(Subject, req, res);
+export const deleteSubject = (req: Request, res: Response): Promise<void> => deleteEntity(Subject, req, res);

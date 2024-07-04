@@ -6,6 +6,10 @@ import courseRoutes from './routes/courseRoutes';
 import gradeRoutes from './routes/gradeRoutes';
 import studentRoutes from './routes/studentRoutes';
 import teacherRoutes from './routes/teacherRoutes';
+import authMiddleware from './middleware/authMiddleware';
+import errorHandler from './middleware/errorHandler';
+import loggerMiddleware from './middleware/loggerMiddleware';
+import validationMiddleware from './middleware/validationMiddleware';
 
 class App {
   public app: express.Application;
@@ -23,6 +27,9 @@ class App {
   private initializeMiddlewares() {
     // Configurar middlewares aquí
     this.app.use(express.json());
+    this.app.use(loggerMiddleware)
+    this.app.use(authMiddleware)
+    this.app.use(errorHandler)
   }
 
   private initializeRoutes() {
