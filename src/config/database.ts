@@ -1,6 +1,5 @@
-// src/config/database.ts
-
 import { Sequelize } from 'sequelize-typescript';
+
 
 const sequelize = new Sequelize({
   database: process.env.DB_NAME || 'control_calificaciones',
