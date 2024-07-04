@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import { createUser, deleteUser, getUserById, getUsers, updateUser } from '../controllers/userController';
+import { createCourse, deleteCourse, getCourseById, getCourses, updateCourse } from '../controllers/courseController';
 
 
 const router: Router = Router();
 
-router.post('/', createUser);
-router.get('/', getUsers);
-router.get('/:id', getUserById);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
+router.post('/', createCourse);
+router.get('/', getCourses);
+router.get('/:id', getCourseById);
+router.put('/:id', updateCourse);
+router.delete('/:id', deleteCourse);
 
 export default router;
