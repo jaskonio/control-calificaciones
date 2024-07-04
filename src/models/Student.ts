@@ -1,12 +1,15 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/database';
-import { Course } from './Course';
+import { User } from './User';
+import { Tutor } from './Tutor';
 
 class Student extends Model {
   public id!: number;
   public firstName!: string;
   public lastName!: string;
-  public courseId!: number;
+  public birthDate!: Date;
+  public tutorId!: number
+  public userId!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -27,10 +30,22 @@ Student.init(
       type: new DataTypes.STRING(50),
       allowNull: false,
     },
-    courseId: {
+    birthDate: {
+      type: new DataTypes.DATE,
+      allowNull: false,
+    },
+    tutorId: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
-        model: Course,
+        model: Tutor,
+        key: 'id',
+      },
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
         key: 'id',
       },
       allowNull: false,

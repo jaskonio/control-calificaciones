@@ -2,27 +2,26 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/database';
 import { Student } from './Student';
 import { Subject } from './Subject';
-import { EvaluativeActivity } from './EvaluativeActivity';
 
-class Grade extends Model {
+class CourseSubject extends Model {
   public id!: number;
-  public calification!: number;
+  public courseId!: number;
   public studentId!: number;
-  public evaluateActivityId!: number;
-  public registryDate!: Date;
+  public subjectId!: number;
+  public teacherId!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-Grade.init(
+CourseSubject.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },
-    calification: {
+    value: {
       type: DataTypes.DECIMAL(5, 2),
       allowNull: false,
     },
@@ -34,24 +33,24 @@ Grade.init(
       },
       allowNull: false,
     },
-    evaluateActivityId: {
+    subjectId: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
-        model: EvaluativeActivity,
+        model: Subject,
         key: 'id',
       },
       allowNull: false,
     },
-    registryDate: {
-      type: new DataTypes.DATE,
+    period: {
+      type: new DataTypes.STRING(20),
       allowNull: false,
     },
   },
   {
     sequelize,
-    tableName: 'grades',
+    tableName: 'course_subjects',
     timestamps: true,
   }
 );
 
-export { Grade };
+export { CourseSubject };

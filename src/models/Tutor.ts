@@ -3,7 +3,7 @@ import sequelize from '../config/database';
 import { User } from './User';
 
 
-class Teacher extends Model {
+class Tutor extends Model {
   public id!: number;
   public firstName!: string;
   public lastName!: string;
@@ -13,7 +13,7 @@ class Teacher extends Model {
   public readonly updatedAt!: Date;
 }
 
-Teacher.init(
+Tutor.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -39,9 +39,9 @@ Teacher.init(
   },
   {
     sequelize,
-    tableName: 'teachers',
+    tableName: 'tutors',
     timestamps: true,
   }
 );
 
-export { Teacher };
+export { Tutor };

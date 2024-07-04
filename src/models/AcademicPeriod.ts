@@ -2,16 +2,17 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/database';
 
 
-class Course extends Model {
+class AcademicPeriod extends Model {
   public id!: number;
   public name!: string;
-  public description!: number;
+  public startDate!: Date;
+  public endDate!: Date;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-Course.init(
+AcademicPeriod.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -22,16 +23,20 @@ Course.init(
       type: new DataTypes.STRING(100),
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+    startDate: {
+        type: new DataTypes.DATE,
+        allowNull: false,
+    },
+    endDate: {
+        type: new DataTypes.DATE,
+        allowNull: false,
     },
   },
   {
     sequelize,
-    tableName: 'courses',
+    tableName: 'academic_periods',
     timestamps: true,
   }
 );
 
-export { Course };
+export { AcademicPeriod };

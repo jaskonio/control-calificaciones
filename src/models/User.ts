@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 import sequelize from '../config/database';
 
 
@@ -29,7 +29,9 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: new DataTypes.STRING(20),
+      type: DataTypes.ENUM({
+        values: ['admin', 'docente', 'tutor', 'alumno'],
+      }),
       allowNull: false,
     },
   },

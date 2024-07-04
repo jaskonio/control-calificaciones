@@ -1,37 +1,32 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/database';
-import { User } from './User';
+import { Course } from './Course';
 
 
-class Teacher extends Model {
+class Section extends Model {
   public id!: number;
-  public firstName!: string;
-  public lastName!: string;
-  public userId!: number;
+  public name!: string;
+  public courseId!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-Teacher.init(
+Section.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },
-    firstName: {
-      type: new DataTypes.STRING(50),
+    name: {
+      type: new DataTypes.STRING(100),
       allowNull: false,
     },
-    lastName: {
-      type: new DataTypes.STRING(50),
-      allowNull: false,
-    },
-    userId: {
+    courseId: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
-        model: User,
+        model: Course,
         key: 'id',
       },
       allowNull: false,
@@ -39,9 +34,9 @@ Teacher.init(
   },
   {
     sequelize,
-    tableName: 'teachers',
+    tableName: 'Sections',
     timestamps: true,
   }
 );
 
-export { Teacher };
+export { Section };
