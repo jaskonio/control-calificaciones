@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
 import { Teacher } from '../models/Teacher';
-import { createEntity, getEntities, getEntityById, updateEntity, deleteEntity } from './baseController';
+import { BaseController } from './baseController';
+import { TeacherService } from '../services/teacher.service';
+import TeacherRepositoryImpl from '../repositories/teacher.repository.impl';
 
-
-export const createTeacher = (req: Request, res: Response): Promise<void> => createEntity(Teacher, req, res);
-export const getTeachers = (req: Request, res: Response): Promise<void> => getEntities(Teacher, req, res);
-export const getTeacherById = (req: Request, res: Response): Promise<void> => getEntityById(Teacher, req, res);
-export const updateTeacher = (req: Request, res: Response): Promise<void> => updateEntity(Teacher, req, res);
-export const deleteTeacher = (req: Request, res: Response): Promise<void> => deleteEntity(Teacher, req, res);
+export class TeacherController extends BaseController {
+    constructor() {
+        super(new TeacherService(new TeacherRepositoryImpl(Teacher)))
+    }
+}

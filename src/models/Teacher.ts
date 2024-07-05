@@ -1,41 +1,17 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/database';
 import { User } from './User';
+import { BaseModel } from './base.model';
 
 
-class Teacher extends Model {
-  public id!: number;
-  public firstName!: string;
-  public lastName!: string;
-  public userId!: number;
-
+class Teacher extends BaseModel {
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+  static asoci
 }
 
 Teacher.init(
   {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    firstName: {
-      type: new DataTypes.STRING(50),
-      allowNull: false,
-    },
-    lastName: {
-      type: new DataTypes.STRING(50),
-      allowNull: false,
-    },
-    userId: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'id',
-      },
-      allowNull: false,
-    },
   },
   {
     sequelize,
@@ -44,4 +20,5 @@ Teacher.init(
   }
 );
 
+Teacher.hasOne(User)
 export { Teacher };

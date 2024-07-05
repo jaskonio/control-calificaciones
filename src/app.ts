@@ -1,10 +1,10 @@
 import express from 'express';
 import sequelize from './config/database';
 import userRoutes from './routes/userRoutes';
-import subjectRoutes from './routes/subjectRoutes';
-import courseRoutes from './routes/courseRoutes';
-import gradeRoutes from './routes/gradeRoutes';
-import studentRoutes from './routes/studentRoutes';
+// import subjectRoutes from './routes/subjectRoutes';
+// import courseRoutes from './routes/courseRoutes';
+// import gradeRoutes from './routes/gradeRoutes';
+// import studentRoutes from './routes/studentRoutes';
 import teacherRoutes from './routes/teacherRoutes';
 import authMiddleware from './middleware/authMiddleware';
 import errorHandler from './middleware/errorHandler';
@@ -34,11 +34,12 @@ class App {
 
   private initializeRoutes() {
     this.app.use('/api/users', userRoutes);
-    this.app.use('/api/subjects', subjectRoutes);
-    this.app.use('/api/courses', courseRoutes);
-    this.app.use('/api/students', studentRoutes);
     this.app.use('/api/teachers', teacherRoutes);
-    this.app.use('/api/grades', gradeRoutes);
+    // this.app.use('/api/subjects', subjectRoutes);
+    // this.app.use('/api/courses', courseRoutes);
+    // this.app.use('/api/students', studentRoutes);
+
+    // this.app.use('/api/grades', gradeRoutes);
   }
 
   private async initDatabase() {

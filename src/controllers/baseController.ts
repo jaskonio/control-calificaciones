@@ -1,62 +1,62 @@
 import { Request, Response } from 'express';
-import { Model, ModelStatic } from 'sequelize';
+import { BaseServiceImpl } from '../services/base.service.impl';
 
+export class BaseController {
+  private service: BaseServiceImpl;
 
-export const createEntity = async <T extends Model>(model: ModelStatic<T>, req: Request, res: Response): Promise<void> => {
-  try {
-    const entity = await model.create(req.body);
-    res.status(201).json(entity);
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
+  constructor(service: BaseServiceImpl) {
+    this.service = service;
   }
-};
 
-export const getEntities = async <T extends Model>(model: ModelStatic<T>, req: Request, res: Response): Promise<void> => {
-  try {
-    const entities = await model.findAll();
-    res.status(200).json(entities);
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
-
-export const getEntityById = async <T extends Model>(model: ModelStatic<T>, req: Request, res: Response): Promise<void> => {
-  try {
-    const entity = await model.findByPk(req.params.id);
-    if (entity) {
-      res.status(200).json(entity);
-    } else {
-      res.status(404).json({ error: `${model.name} not found` });
+  async createEntity(req: Request, res: Response): Promise<void> {
+    try {
+      const entity = await this.service.create(req.body);
+      res.status(201).json(entity);
     }
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
-
-export const updateEntity = async <T extends Model>(model: ModelStatic<T>, req: Request, res: Response): Promise<void> => {
-  try {
-    const entity = await model.findByPk(req.params.id);
-    if (entity) {
-      await entity.update(req.body);
-      res.status(200).json(entity);
-    } else {
-      res.status(404).json({ error: `${model.name} not found` });
+    catch (error) {
+      res.status(500).json({ error: (error as Error).message });
     }
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
-
-export const deleteEntity = async <T extends Model>(model: ModelStatic<T>, req: Request, res: Response): Promise<void> => {
-  try {
-    const entity = await model.findByPk(req.params.id);
-    if (entity) {
-      await entity.destroy();
-      res.status(204).json();
-    } else {
-      res.status(404).json({ error: `${model.name} not found` });
+  };
+  
+  async getEntities(req: Request, res: Response): Promise<void> {
+    try {
+      const entities = await this.service.getAll();
+      res.status(200).json(entities);
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
     }
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-};
+  };
+  
+  async getEntityById(req: Request, res: Response): Promise<void> {
+    try {
+      const entity = await this.service.findById(Number(req.params.id));
+      if (entity) {
+        res.status(200).json(entity);
+      } else {
+        res.status(404).json({ error: `Entity not found` });
+      }
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  };
+  
+  async updateEntity(req: Request, res: Response): Promise<void> {
+    try {
+        const entity = await this.service.updateById(Number(req.params.id), req.body);
+        res.status(200).json(entity);
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  };
+  
+  async deleteEntity(req: Request, res: Response): Promise<void> {
+    try {
+      const entity = await this.service.deleteById(Number(req.params.id));
+      res.status(500).json({ status: "OK"});
+
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  };
+}
+

@@ -5,8 +5,6 @@ import { User } from './User';
 
 class Tutor extends Model {
   public id!: number;
-  public firstName!: string;
-  public lastName!: string;
   public userId!: number;
 
   public readonly createdAt!: Date;
@@ -19,14 +17,6 @@ Tutor.init(
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
-    },
-    firstName: {
-      type: new DataTypes.STRING(50),
-      allowNull: false,
-    },
-    lastName: {
-      type: new DataTypes.STRING(50),
-      allowNull: false,
     },
     userId: {
       type: DataTypes.INTEGER.UNSIGNED,

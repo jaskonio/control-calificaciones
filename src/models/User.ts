@@ -1,12 +1,14 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import sequelize from '../config/database';
 import { BaseModel } from './base.model';
+import { Teacher } from './Teacher';
 
 
 class User extends BaseModel {
-  public id!: number;
   public username!: string;
   public password!: string;
+  public firstName!: string;
+  public lastName!: string;
   public role!: string;
 
   public readonly createdAt!: Date;
@@ -15,11 +17,6 @@ class User extends BaseModel {
 
 User.init(
   {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     username: {
       type: new DataTypes.STRING(50),
       allowNull: false,
@@ -27,6 +24,14 @@ User.init(
     },
     password: {
       type: new DataTypes.STRING(100),
+      allowNull: false,
+    },
+    firstName: {
+      type: new DataTypes.STRING(50),
+      allowNull: false,
+    },
+    lastName: {
+      type: new DataTypes.STRING(50),
       allowNull: false,
     },
     role: {
@@ -42,5 +47,5 @@ User.init(
     timestamps: true,
   }
 )
-
+User.belongsTo(Teacher)
 export { User };

@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize-typescript';
+import { Sequelize } from "sequelize";
 
 
 const sequelize = new Sequelize({
@@ -6,8 +6,7 @@ const sequelize = new Sequelize({
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || 'password',
   host: process.env.DB_HOST || 'localhost',
-  dialect: 'postgres',
-  // models: [__dirname + '/../models'], // Ruta donde estarán definidos los modelos
+  dialect: 'postgres'
 });
 
 export default sequelize;
