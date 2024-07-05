@@ -28,6 +28,7 @@ docker run --name pg-control-calificaciones -p 5432:5432 -e POSTGRES_USER=postgr
 
 docker run --name pg-control-calificaciones -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=control_calificaciones -d postgres
 
+docker start pg-control-calificaciones
 docker stop pg-control-calificaciones
 docker rm pg-control-calificaciones
 ```

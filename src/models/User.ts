@@ -1,8 +1,9 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import sequelize from '../config/database';
+import { BaseModel } from './base.model';
 
 
-export class User extends Model {
+class User extends BaseModel {
   public id!: number;
   public username!: string;
   public password!: string;
@@ -41,3 +42,5 @@ User.init(
     timestamps: true,
   }
 )
+
+export { User };
