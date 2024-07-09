@@ -3,7 +3,9 @@ import { User } from '../models/User';
 import { BaseRepository } from './base.repository';
 import BaseRepositoryImpl from './base.repository.impl';
 
+
 export interface UserRepository extends BaseRepository<User> {}
+
 
 class UserRepositoryImpl extends BaseRepositoryImpl {
 

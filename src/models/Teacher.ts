@@ -1,24 +1,21 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/database';
+import { Sequelize } from 'sequelize';
 import { User } from './User';
-import { BaseModel } from './base.model';
 
 
-class Teacher extends BaseModel {
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-  static asoci
+class Teacher extends User {
+  public static initialize(sequelize: Sequelize): void {
+    super.initialize(sequelize);
+
+    this.addScope('defaultScope', {
+      where: {
+        role: 'tutor'
+      }
+    });
+
+    this.addHook('beforeValidate', (teacher: Teacher) => {
+      teacher.role = 'tutor';
+    });
+  }
 }
 
-Teacher.init(
-  {
-  },
-  {
-    sequelize,
-    tableName: 'teachers',
-    timestamps: true,
-  }
-);
-
-Teacher.hasOne(User)
 export { Teacher };

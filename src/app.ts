@@ -4,12 +4,14 @@ import userRoutes from './routes/userRoutes';
 // import subjectRoutes from './routes/subjectRoutes';
 // import courseRoutes from './routes/courseRoutes';
 // import gradeRoutes from './routes/gradeRoutes';
-// import studentRoutes from './routes/studentRoutes';
 import teacherRoutes from './routes/teacherRoutes';
 import authMiddleware from './middleware/authMiddleware';
 import errorHandler from './middleware/errorHandler';
 import loggerMiddleware from './middleware/loggerMiddleware';
 import validationMiddleware from './middleware/validationMiddleware';
+import studentRoutes from './routes/studentRoutes';
+import tutorRoutes from './routes/tutorRoutes';
+
 
 class App {
   public app: express.Application;
@@ -35,10 +37,12 @@ class App {
   private initializeRoutes() {
     this.app.use('/api/users', userRoutes);
     this.app.use('/api/teachers', teacherRoutes);
+    this.app.use('/api/students', studentRoutes);
+    this.app.use('/api/tutors', tutorRoutes);
+
     // this.app.use('/api/subjects', subjectRoutes);
     // this.app.use('/api/courses', courseRoutes);
     // this.app.use('/api/students', studentRoutes);
-
     // this.app.use('/api/grades', gradeRoutes);
   }
 

@@ -1,37 +1,21 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/database';
+import { Sequelize } from 'sequelize';
 import { User } from './User';
 
 
-class Tutor extends Model {
-  public id!: number;
-  public userId!: number;
+class Tutor extends User {
+  public static initialize(sequelize: Sequelize): void {
+    super.initialize(sequelize);
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-}
+    this.addScope('defaultScope', {
+      where: {
+        role: 'docente'
+      }
+    });
 
-Tutor.init(
-  {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    userId: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'id',
-      },
-      allowNull: false,
-    },
-  },
-  {
-    sequelize,
-    tableName: 'tutors',
-    timestamps: true,
+    this.addHook('beforeValidate', (tutor: Tutor) => {
+      tutor.role = 'docente';
+    });
   }
-);
+}
 
 export { Tutor };
