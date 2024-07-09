@@ -37,7 +37,7 @@ describe('UserController', () => {
         role: 'user',
       };
 
-      await userController.createUser(mockRequest as Request, mockResponse as Response);
+      await userController.createEntity(mockRequest as Request, mockResponse as Response);
 
       expect(mockResponse.status).toHaveBeenCalledWith(201);
       expect(mockResponse.json).toHaveBeenCalledWith(mockUser);
@@ -57,7 +57,7 @@ describe('UserController', () => {
         role: 'user',
       };
 
-      await userController.createUser(mockRequest as Request, mockResponse as Response);
+      await userController.createEntity(mockRequest as Request, mockResponse as Response);
 
       expect(mockResponse.status).toHaveBeenCalledWith(500);
       expect(mockResponse.json).toHaveBeenCalledWith({ error: errorMessage });
@@ -77,7 +77,7 @@ describe('UserController', () => {
 
       mockRequest.params = { id: '1' };
 
-      await userController.getUserById(mockRequest as Request, mockResponse as Response);
+      await userController.getEntityById(mockRequest as Request, mockResponse as Response);
 
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalledWith(mockUser);
@@ -88,10 +88,10 @@ describe('UserController', () => {
 
       mockRequest.params = { id: '999' };
 
-      await userController.getUserById(mockRequest as Request, mockResponse as Response);
+      await userController.getEntityById(mockRequest as Request, mockResponse as Response);
 
       expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.json).toHaveBeenCalledWith({ error: 'User not found' });
+      expect(mockResponse.json).toHaveBeenCalledWith({ error: 'Entity not found' });
     });
 
     it('should handle error when getting user fails', async () => {
@@ -100,7 +100,7 @@ describe('UserController', () => {
 
       mockRequest.params = { id: '1' };
 
-      await userController.getUserById(mockRequest as Request, mockResponse as Response);
+      await userController.getEntityById(mockRequest as Request, mockResponse as Response);
 
       expect(mockResponse.status).toHaveBeenCalledWith(500);
       expect(mockResponse.json).toHaveBeenCalledWith({ error: errorMessage });
